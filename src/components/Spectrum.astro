@@ -1,0 +1,153 @@
+---
+// Schematic transmission spectrum: transit depth vs wavelength, with
+// absorption features labelled for the minor molecules Tailong works on.
+// Decorative; the figure caption marks it as a schematic.
+---
+
+<figure class="spectrum">
+  <svg
+    viewBox="0 0 1000 260"
+    role="img"
+    aria-label="Schematic transmission spectrum with absorption features labelled NH3, H2S and SO2"
+  >
+    <!-- spectrum curve -->
+    <path
+      class="curve"
+      pathLength="1000"
+      d="M 60 185
+         C 100 183, 130 150, 165 148
+         C 200 146, 215 180, 250 182
+         C 275 183, 280 140, 310 138
+         C 340 136, 350 178, 385 180
+         C 415 182, 425 145, 455 142
+         C 490 139, 510 176, 545 178
+         C 580 180, 600 168, 630 158
+         C 655 150, 665 165, 690 150
+         C 700 120, 715 115, 725 130
+         C 740 155, 760 178, 800 182
+         C 840 186, 880 184, 940 186"
+    ></path>
+
+    <!-- wavelength axis -->
+    <g class="axis">
+      <line x1="60" y1="212" x2="940" y2="212"></line>
+      {
+        [1, 2, 3, 4, 5].map((um) => {
+          const x = 60 + ((um - 0.8) / 4.4) * 880;
+          return (
+            <>
+              <line x1={x} y1="212" x2={x} y2="219" />
+              <text x={x} y="238" text-anchor="middle">
+                {um}
+              </text>
+            </>
+          );
+        })
+      }
+      <text x="500" y="258" text-anchor="middle">wavelength (&#181;m)</text>
+      <text x="38" y="180" text-anchor="middle" transform="rotate(-90 38 180)">
+        transit depth
+      </text>
+    </g>
+
+    <!-- molecule annotations -->
+    <g class="labels">
+      <text x="310" y="122" text-anchor="middle">
+        NH<tspan dy="4" font-size="11">3</tspan>
+      </text>
+      <text x="640" y="138" text-anchor="middle">
+        H<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">S</tspan>
+      </text>
+      <text x="716" y="99" text-anchor="middle">
+        SO<tspan dy="4" font-size="11">2</tspan>
+      </text>
+    </g>
+  </svg>
+  <figcaption class="mono muted">
+    Fig. 1: a transmission spectrum (schematic).
+  </figcaption>
+</figure>
+
+<style>
+  .spectrum {
+    margin: 0;
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .curve {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: draw 2200ms var(--ease-out-expo) 600ms forwards;
+  }
+
+  .axis line {
+    stroke: var(--ink-muted);
+    stroke-width: 1;
+  }
+
+  .axis text,
+  .labels text {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    fill: var(--ink-muted);
+  }
+
+  .labels text {
+    fill: var(--accent);
+  }
+
+  .axis,
+  .labels {
+    opacity: 0;
+    animation: fade 900ms var(--ease-out-expo) forwards;
+  }
+
+  .axis {
+    animation-delay: 1400ms;
+  }
+
+  .labels {
+    animation-delay: 2400ms;
+  }
+
+  figcaption {
+    margin-top: 0.75rem;
+    opacity: 0;
+    animation: fade 900ms var(--ease-out-expo) 2700ms forwards;
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes fade {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .curve {
+      stroke-dashoffset: 0;
+      animation: none;
+    }
+
+    .axis,
+    .labels,
+    figcaption {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>

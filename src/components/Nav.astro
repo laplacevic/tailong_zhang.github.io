@@ -1,0 +1,111 @@
+---
+const items = [
+  { no: "01", label: "About", href: "#about" },
+  { no: "02", label: "Research", href: "#research" },
+  { no: "03", label: "Talks", href: "#talks" },
+  { no: "04", label: "Contact", href: "#contact" },
+];
+---
+
+<nav aria-label="Section navigation">
+  <ul>
+    {
+      items.map((item) => (
+        <li>
+          <a href={item.href} data-section={item.href.slice(1)}>
+            <span class="no">{item.no}</span>
+            <span class="label">{item.label}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  nav {
+    position: fixed;
+    top: 1.5rem;
+    right: var(--gutter);
+    z-index: 10;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  a {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    display: inline-flex;
+    gap: 0.45em;
+    align-items: baseline;
+  }
+
+  .no {
+    color: var(--accent);
+    transition: transform 220ms var(--ease-out-expo);
+  }
+
+  a:hover .no,
+  a:focus-visible .no,
+  a[aria-current="true"] .no {
+    transform: translateY(-0.2em);
+  }
+
+  .label {
+    border-bottom: 1px solid transparent;
+  }
+
+  a:hover .label,
+  a[aria-current="true"] .label {
+    border-bottom-color: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    nav {
+      position: absolute;
+    }
+
+    .label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .no {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>("nav a[data-section]");
+  const sections = [...links]
+    .map((a) => document.getElementById(a.dataset.section ?? ""))
+    .filter((el): el is HTMLElement => el !== null);
+
+  const spy = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        const link = document.querySelector(
+          `nav a[data-section="${entry.target.id}"]`,
+        );
+        if (entry.isIntersecting) {
+          links.forEach((a) => a.removeAttribute("aria-current"));
+          link?.setAttribute("aria-current", "true");
+        }
+      }
+    },
+    { rootMargin: "-40% 0px -55% 0px" },
+  );
+  sections.forEach((s) => spy.observe(s));
+</script>

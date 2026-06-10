@@ -1,0 +1,153 @@
+/* Design tokens — see DESIGN.md */
+:root {
+  --paper: oklch(97.5% 0.008 85);
+  --paper-deep: oklch(94.5% 0.012 85);
+  --ink: oklch(22% 0.012 60);
+  --ink-muted: oklch(45% 0.015 60);
+  --accent: oklch(55% 0.16 40);
+  --rule: oklch(85% 0.01 85);
+
+  --font-display: "Spectral", "Iowan Old Style", Georgia, serif;
+  --font-body: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Spline Sans Mono", "SF Mono", Menlo, monospace;
+
+  --text-sm: 0.8125rem;
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.35rem, 1.2rem + 0.7vw, 1.75rem);
+  --text-xl: clamp(1.9rem, 1.5rem + 1.8vw, 2.9rem);
+  --text-hero: clamp(2.5rem, 0.9rem + 7vw, 7.5rem);
+
+  --space-section: clamp(5rem, 4rem + 6vw, 11rem);
+  --content-max: 1100px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-reveal: 900ms;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+p {
+  max-width: 68ch;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-thickness 180ms var(--ease-out-expo);
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration-thickness: 3px;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+/* Shared layout shell */
+.shell {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Section scaffold: mono panel number in the gutter, ruled top edge */
+.panel {
+  border-top: 1px solid var(--rule);
+  padding-block: var(--space-section);
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  margin-bottom: clamp(2rem, 2vw + 1.5rem, 3.5rem);
+}
+
+.panel-no {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.panel-title {
+  font-size: var(--text-xl);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.02em;
+}
+
+.muted {
+  color: var(--ink-muted);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity var(--duration-reveal) var(--ease-out-expo),
+    transform var(--duration-reveal) var(--ease-out-expo);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

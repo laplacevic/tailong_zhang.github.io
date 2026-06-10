@@ -1,0 +1,72 @@
+---
+import { profile } from "../data/profile";
+import Spectrum from "./Spectrum.astro";
+---
+
+<header class="hero shell">
+  <p class="kicker mono rise" style="--i: 0">
+    {profile.name} &middot; {profile.role}, {profile.institution}
+  </p>
+  <h1 class="rise" style="--i: 1">{profile.name}</h1>
+  <p class="tagline rise" style="--i: 2">{profile.tagline}</p>
+  <div class="figure">
+    <Spectrum />
+  </div>
+</header>
+
+<style>
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 5rem 3rem;
+  }
+
+  .kicker {
+    color: var(--ink-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: var(--text-hero);
+    font-weight: 300;
+    letter-spacing: -0.015em;
+    margin-left: -0.04em;
+  }
+
+  .tagline {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--text-lg);
+    color: var(--ink-muted);
+    margin-top: 1.25rem;
+    max-width: 30ch;
+  }
+
+  .figure {
+    margin-top: clamp(2.5rem, 6vh, 5rem);
+  }
+
+  .rise {
+    opacity: 0;
+    transform: translateY(1.2em);
+    animation: rise 1000ms var(--ease-out-expo) forwards;
+    animation-delay: calc(var(--i) * 160ms);
+  }
+
+  @keyframes rise {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+</style>

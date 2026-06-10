@@ -1,0 +1,106 @@
+---
+const interests = [
+  {
+    no: "a",
+    title: "Minor molecules",
+    text: "SO2, NH3, H2S, HCN: the trace species whose detection (or confident non-detection) carries outsized information about an atmosphere's chemistry.",
+  },
+  {
+    no: "b",
+    title: "Chemistry as formation context",
+    text: "What abundance patterns such as C/O, metallicity, N/O and S/O can, and cannot, tell us about where and how a planet formed.",
+  },
+  {
+    no: "c",
+    title: "Information content",
+    text: "Which claims a given spectrum actually supports: degeneracies from clouds, hazes and stellar contamination, and the limits of JWST and Ariel data.",
+  },
+];
+---
+
+<section id="research" class="panel">
+  <div class="shell">
+    <div class="panel-head reveal">
+      <span class="panel-no">02</span>
+      <h2 class="panel-title">Research</h2>
+    </div>
+    <p class="lede reveal">
+      My main line of work is <em>transmission-spectroscopy retrieval</em> of
+      exoplanet atmospheres in the JWST and Ariel era: fitting
+      radiative-transfer models to the starlight filtered through a
+      planet's atmosphere during transit, and treating the resulting
+      posteriors with the scepticism they deserve.
+    </p>
+    <ol class="interests">
+      {
+        interests.map((item) => (
+          <li class="reveal">
+            <span class="mono no">({item.no})</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p class="muted">{item.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .lede {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    line-height: 1.45;
+    max-width: 32em;
+  }
+
+  .lede em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .interests {
+    list-style: none;
+    padding: 0;
+    margin-top: clamp(2.5rem, 4vw, 4rem);
+    display: grid;
+    gap: 2.25rem;
+  }
+
+  .interests li {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    align-items: baseline;
+    max-width: 60ch;
+  }
+
+  .interests li:nth-child(2) {
+    margin-left: clamp(0rem, 8vw, 6rem);
+  }
+
+  .interests li:nth-child(3) {
+    margin-left: clamp(0rem, 16vw, 12rem);
+  }
+
+  .no {
+    color: var(--accent);
+  }
+
+  h3 {
+    font-size: var(--text-base);
+    font-family: var(--font-body);
+    font-weight: 700;
+  }
+
+  .interests p {
+    margin-top: 0.35em;
+  }
+
+  @media (max-width: 700px) {
+    .interests li:nth-child(2),
+    .interests li:nth-child(3) {
+      margin-left: 0;
+    }
+  }
+</style>

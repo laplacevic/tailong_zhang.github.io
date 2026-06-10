@@ -1,0 +1,80 @@
+---
+import { getCollection } from "astro:content";
+
+const talks = (await getCollection("talks")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+const fmt = new Intl.DateTimeFormat("en-GB", {
+  year: "numeric",
+  month: "short",
+});
+---
+
+<section id="talks" class="panel">
+  <div class="shell">
+    <div class="panel-head reveal">
+      <span class="panel-no">03</span>
+      <h2 class="panel-title">Talks &amp; news</h2>
+    </div>
+    <ol class="timeline">
+      {
+        talks.map((talk) => (
+          <li class="reveal">
+            <time class="mono" datetime={talk.data.date.toISOString()}>
+              {fmt.format(talk.data.date)}
+            </time>
+            <div>
+              <p class="title">
+                {talk.data.link ? (
+                  <a href={talk.data.link}>{talk.data.title}</a>
+                ) : (
+                  talk.data.title
+                )}
+              </p>
+              <p class="mono muted">
+                {talk.data.kind} &middot; {talk.data.venue}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.75rem;
+    max-width: 60ch;
+  }
+
+  .timeline li {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+  }
+
+  time {
+    color: var(--accent);
+  }
+
+  .title {
+    font-weight: 500;
+  }
+
+  .timeline .mono.muted {
+    margin-top: 0.25em;
+  }
+
+  @media (max-width: 520px) {
+    .timeline li {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>
