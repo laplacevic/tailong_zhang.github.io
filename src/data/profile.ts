@@ -5,7 +5,7 @@ export const profile = {
   institution: "King's College London",
   group: "supervised by Prof. Giovanna Tinetti",
   tagline: "I study exoplanet atmospheres through transmission spectroscopy.",
-  email: "TODO.your-name@kcl.ac.uk",
+  email: "tailong.zhang@kcl.ac.uk",
   links: {
     orcid: "https://orcid.org/TODO-0000-0000-0000",
     github: "https://github.com/tailongzhang",
