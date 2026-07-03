@@ -4,7 +4,7 @@ export const profile = {
   role: "PhD candidate, exoplanet atmospheres",
   institution: "King's College London",
   group: "supervised by Prof. Giovanna Tinetti",
-  tagline: "I study exoplanet atmospheres through transmission spectroscopy.",
+  tagline: "I read the atmospheres of other worlds in filtered starlight.",
   email: "tailong.zhang@kcl.ac.uk",
   links: {
     orcid: "https://orcid.org/0009-0008-2580-6234",
