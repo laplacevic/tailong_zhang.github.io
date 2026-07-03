@@ -62,6 +62,12 @@
         SO<tspan dy="4" font-size="11">2</tspan>
       </text>
     </g>
+
+    <!-- hover crosshair: matplotlib-style wavelength readout -->
+    <g class="cross" aria-hidden="true">
+      <line class="cross-line" x1="500" x2="500" y1="66" y2="212"></line>
+      <text class="cross-text" x="500" y="52" text-anchor="middle"></text>
+    </g>
   </svg>
   <figcaption class="mono muted">
     Fig. 1: a transmission spectrum (schematic).
@@ -103,6 +109,34 @@
 
   .labels text {
     fill: var(--accent);
+  }
+
+  .cross {
+    opacity: 0;
+    transition: opacity 200ms var(--ease-out-expo);
+    pointer-events: none;
+  }
+
+  .cross.on {
+    opacity: 1;
+  }
+
+  .cross-line {
+    stroke: var(--accent);
+    stroke-width: 1;
+    stroke-dasharray: 3 5;
+  }
+
+  .cross-text {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    fill: var(--ink-muted);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    svg {
+      cursor: crosshair;
+    }
   }
 
   .axis,
@@ -151,3 +185,36 @@
     }
   }
 </style>
+
+<script>
+  // Wavelength readout that follows the cursor, like a matplotlib figure.
+  const svg = document.querySelector<SVGSVGElement>(".spectrum svg");
+  const cross = svg?.querySelector<SVGGElement>(".cross");
+  const line = svg?.querySelector<SVGLineElement>(".cross-line");
+  const text = svg?.querySelector<SVGTextElement>(".cross-text");
+  const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+  const molecules: Array<[number, number, string]> = [
+    [275, 345, "NH₃"],
+    [595, 665, "H₂S"],
+    [686, 746, "SO₂"],
+  ];
+
+  if (svg && cross && line && text && fine.matches) {
+    svg.addEventListener("pointermove", (e) => {
+      const rect = svg.getBoundingClientRect();
+      const x = Math.min(
+        940,
+        Math.max(60, ((e.clientX - rect.left) / rect.width) * 1000),
+      );
+      const um = 0.8 + ((x - 60) / 880) * 4.4;
+      const mol = molecules.find(([a, b]) => x >= a && x <= b)?.[2];
+      line.setAttribute("x1", String(x));
+      line.setAttribute("x2", String(x));
+      text.setAttribute("x", String(Math.min(870, Math.max(130, x))));
+      text.textContent = `λ = ${um.toFixed(2)} µm${mol ? ` · ${mol}` : ""}`;
+      cross.classList.add("on");
+    });
+    svg.addEventListener("pointerleave", () => cross.classList.remove("on"));
+  }
+</script>

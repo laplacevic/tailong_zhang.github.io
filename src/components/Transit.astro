@@ -1,0 +1,178 @@
+---
+// Fig. 2: transit geometry with a synchronised light curve. The planet
+// crosses the stellar disk while the flux curve draws itself in step.
+// Plays once when scrolled into view; click replays.
+---
+
+<figure class="transit reveal" id="transit-fig">
+  <svg
+    viewBox="0 0 1000 300"
+    role="img"
+    aria-label="Animated schematic of a planetary transit: a planet crosses its star while the measured stellar flux dips"
+  >
+    <!-- transit geometry -->
+    <circle class="star" cx="170" cy="130" r="80"></circle>
+    <circle class="planet" cx="60" cy="130" r="10"></circle>
+
+    <!-- light curve axes -->
+    <g class="axis">
+      <line x1="380" y1="240" x2="940" y2="240"></line>
+      <line x1="380" y1="240" x2="380" y2="70"></line>
+      <text x="660" y="266" text-anchor="middle">time</text>
+      <text
+        x="358"
+        y="155"
+        text-anchor="middle"
+        transform="rotate(-90 358 155)">relative flux</text
+      >
+    </g>
+
+    <!-- light curve: contact points match the planet's path across the disk -->
+    <path
+      class="lightcurve"
+      pathLength="1000"
+      d="M 380 100 L 431 100 L 482 145 L 838 145 L 889 100 L 940 100"
+    ></path>
+    <text class="depth" x="660" y="175" text-anchor="middle">transit</text>
+  </svg>
+  <figcaption class="mono muted">
+    Fig. 2: the method. A planet crosses its star; the starlight dims.
+    <span class="hint">(click to replay)</span>
+  </figcaption>
+</figure>
+
+<style>
+  .transit {
+    margin: clamp(3rem, 6vw, 5rem) 0 0 auto;
+    max-width: 680px;
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: pointer;
+  }
+
+  .star {
+    fill: var(--paper-deep);
+    stroke: var(--ink-muted);
+    stroke-width: 1.5;
+  }
+
+  .planet {
+    fill: var(--ink);
+  }
+
+  .axis line {
+    stroke: var(--ink-muted);
+    stroke-width: 1;
+  }
+
+  .axis text,
+  .depth {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    fill: var(--ink-muted);
+  }
+
+  .depth {
+    fill: var(--accent);
+    opacity: 0;
+  }
+
+  .lightcurve {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+
+  .transit.run .planet {
+    animation: cross 6000ms linear 300ms forwards;
+  }
+
+  .transit.run .lightcurve {
+    animation: draw 6000ms linear 300ms forwards;
+  }
+
+  .transit.run .depth {
+    animation: fade 700ms var(--ease-out-expo) 3300ms forwards;
+  }
+
+  figcaption {
+    margin-top: 0.75rem;
+  }
+
+  @keyframes cross {
+    to {
+      transform: translateX(220px);
+    }
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes fade {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .planet {
+      transform: translateX(110px);
+    }
+
+    .lightcurve {
+      stroke-dashoffset: 0;
+    }
+
+    .depth {
+      opacity: 1;
+    }
+
+    .transit.run .planet,
+    .transit.run .lightcurve,
+    .transit.run .depth {
+      animation: none;
+    }
+
+    .hint {
+      display: none;
+    }
+
+    svg {
+      cursor: default;
+    }
+  }
+</style>
+
+<script>
+  const fig = document.getElementById("transit-fig");
+  if (fig) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            fig.classList.add("run");
+            observer.unobserve(fig);
+          }
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(fig);
+    fig.addEventListener("click", () => {
+      fig.classList.remove("run");
+      void fig.getBoundingClientRect().width;
+      fig.classList.add("run");
+    });
+  }
+</script>

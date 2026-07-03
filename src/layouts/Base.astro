@@ -48,6 +48,23 @@ const title = `${profile.name} — exoplanet atmospheres`;
       document
         .querySelectorAll(".reveal")
         .forEach((el) => observer.observe(el));
+
+      // Sections are taller than the reveal threshold suits; the panel
+      // rule draws in as soon as any of the section is on screen.
+      const panelObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              panelObserver.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.05 },
+      );
+      document
+        .querySelectorAll(".panel")
+        .forEach((el) => panelObserver.observe(el));
     </script>
   </body>
 </html>

@@ -58,8 +58,15 @@ prefers-reduced-motion:
 
 - Page load: hero name rises in staggered lines; spectrum curve draws
   itself once (SVG stroke-dashoffset), absorption features tick in last.
+- Hero spectrum is interactive on fine pointers: a dashed crosshair with
+  a mono wavelength readout (and nearest-molecule label) follows the
+  cursor, matplotlib-style. No motion cost when idle.
+- Fig. 2 (Research): transit schematic. A planet crosses the stellar
+  disk while the light curve draws in sync; plays once on scroll into
+  view, click to replay. Still nothing loops.
 - Scroll: sections fade-and-rise once via IntersectionObserver
-  (threshold ~0.2), never re-trigger.
+  (threshold ~0.2), never re-trigger; section hairline rules draw in
+  from the left the first time a panel enters view.
 - Hover: links get an underline that thickens from the baseline; nav
   numbers slide; no scale transforms on text.
 - Nothing loops, nothing parallaxes.
@@ -68,7 +75,10 @@ prefers-reduced-motion:
 
 - Spectrum motif: inline SVG, single path, ~2px stroke in --ink, with
   3-4 absorption dips; small mono labels (e.g. "SO2", "H2S") in
-  --accent near the dips. Doubles as the only illustration.
+  --accent near the dips.
+- Transit motif (Fig. 2): star disk + planet + synchronized light
+  curve, same annotated-figure language. The two numbered figures are
+  the illustration budget; nothing louder.
 - Photo: rectangular, no rounded avatar circle; sits on the grid like
   an editorial portrait, small caption in mono.
 - Footer: colophon line ("Set in Spectral & Schibsted Grotesk. Built with Astro.")

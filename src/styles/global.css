@@ -92,10 +92,28 @@ img {
   padding-inline: var(--gutter);
 }
 
-/* Section scaffold: mono panel number in the gutter, ruled top edge */
+/* Section scaffold: mono panel number in the gutter, ruled top edge.
+   The rule draws in from the left when the section first enters view. */
 .panel {
-  border-top: 1px solid var(--rule);
+  position: relative;
   padding-block: var(--space-section);
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--rule);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1400ms var(--ease-out-expo);
+}
+
+.panel.is-visible::before {
+  transform: scaleX(1);
 }
 
 .panel-head {
@@ -148,6 +166,11 @@ img {
   .reveal {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+
+  .panel::before {
+    transform: scaleX(1);
     transition: none;
   }
 }
