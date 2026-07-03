@@ -9,6 +9,8 @@ wavelength), drawn as a fine line, used in the hero and nowhere louder.
 
 Theme scene: a researcher opens the site on a laptop in a bright office
 or conference hall, daylight on the screen. Light theme, paper-warm.
+A faint fixed noise overlay (multiply, ~5%) gives the paper physical
+grain; plot areas in the two figures sit on a light graph-paper grid.
 
 ## Color
 
@@ -53,8 +55,8 @@ scientific monograph page with a hand-annotated figure.
 
 ## Motion
 
-Restrained budget, all ease-out-quart/expo, all gated behind
-prefers-reduced-motion:
+Restrained budget, all ease-out-quart/expo. (Owner decision 2026-07:
+reduced-motion gating removed; motion always plays.)
 
 - Page load: hero name rises in staggered lines; spectrum curve draws
   itself once (SVG stroke-dashoffset), absorption features tick in last.

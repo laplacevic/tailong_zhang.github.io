@@ -14,6 +14,23 @@
     <circle class="star" cx="170" cy="130" r="80"></circle>
     <circle class="planet" cx="60" cy="130" r="10"></circle>
 
+    <!-- graph-paper grid under the light-curve plot -->
+    <defs>
+      <pattern
+        id="grid-transit"
+        width="22"
+        height="22"
+        patternUnits="userSpaceOnUse"
+      >
+        <path
+          d="M 22 0 H 0 V 22"
+          fill="none"
+          style="stroke: var(--rule); stroke-width: 1;"></path>
+      </pattern>
+    </defs>
+    <rect class="grid" x="380" y="70" width="560" height="170" fill="url(#grid-transit)"
+    ></rect>
+
     <!-- light curve axes -->
     <g class="axis">
       <line x1="380" y1="240" x2="940" y2="240"></line>
@@ -58,6 +75,10 @@
     fill: var(--paper-deep);
     stroke: var(--ink-muted);
     stroke-width: 1.5;
+  }
+
+  .grid {
+    opacity: 0.55;
   }
 
   .planet {
@@ -122,34 +143,6 @@
   @keyframes fade {
     to {
       opacity: 1;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .planet {
-      transform: translateX(110px);
-    }
-
-    .lightcurve {
-      stroke-dashoffset: 0;
-    }
-
-    .depth {
-      opacity: 1;
-    }
-
-    .transit.run .planet,
-    .transit.run .lightcurve,
-    .transit.run .depth {
-      animation: none;
-    }
-
-    .hint {
-      display: none;
-    }
-
-    svg {
-      cursor: default;
     }
   }
 </style>

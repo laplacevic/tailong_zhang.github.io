@@ -10,6 +10,23 @@
     role="img"
     aria-label="Schematic transmission spectrum with absorption features labelled NH3, H2S and SO2"
   >
+    <!-- graph-paper grid under the plot area -->
+    <defs>
+      <pattern
+        id="grid-spec"
+        width="22"
+        height="22"
+        patternUnits="userSpaceOnUse"
+      >
+        <path
+          d="M 22 0 H 0 V 22"
+          fill="none"
+          style="stroke: var(--rule); stroke-width: 1;"></path>
+      </pattern>
+    </defs>
+    <rect class="grid" x="60" y="50" width="880" height="162" fill="url(#grid-spec)"
+    ></rect>
+
     <!-- spectrum curve -->
     <path
       class="curve"
@@ -140,9 +157,15 @@
   }
 
   .axis,
-  .labels {
+  .labels,
+  .grid {
     opacity: 0;
     animation: fade 900ms var(--ease-out-expo) forwards;
+  }
+
+  .grid {
+    animation-name: fade-grid;
+    animation-delay: 1000ms;
   }
 
   .axis {
@@ -171,17 +194,9 @@
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .curve {
-      stroke-dashoffset: 0;
-      animation: none;
-    }
-
-    .axis,
-    .labels,
-    figcaption {
-      opacity: 1;
-      animation: none;
+  @keyframes fade-grid {
+    to {
+      opacity: 0.55;
     }
   }
 </style>
