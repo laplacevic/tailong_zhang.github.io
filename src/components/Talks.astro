@@ -33,7 +33,8 @@ const fmt = new Intl.DateTimeFormat("en-GB", {
                 )}
               </p>
               <p class="mono muted">
-                {talk.data.kind} &middot; {talk.data.venue}
+                {talk.data.contribution ?? talk.data.kind} &middot;{" "}
+                {talk.data.venue}
                 {talk.data.highlight && (
                   <span class="prize">&middot; {talk.data.highlight}</span>
                 )}

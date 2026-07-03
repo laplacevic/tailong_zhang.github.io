@@ -10,6 +10,7 @@ const talks = defineCollection({
     kind: z.enum(["talk", "poster", "news"]).default("talk"),
     link: z.string().url().optional(),
     highlight: z.string().optional(),
+    contribution: z.string().optional(),
   }),
 });
 

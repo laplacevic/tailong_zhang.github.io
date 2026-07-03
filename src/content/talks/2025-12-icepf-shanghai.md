@@ -1,6 +1,8 @@
 ---
-title: "International Conference on Exoplanets and Planet Formation (two posters)"
+title: "Exoplanets and Planet Formation (EPF 2025)"
 date: 2025-12-08
-venue: "Shanghai"
+venue: "Tsung-Dao Lee Institute, Shanghai"
 kind: poster
+contribution: "two contributed posters"
+link: "https://indico-tdli.sjtu.edu.cn/event/4089/"
 ---

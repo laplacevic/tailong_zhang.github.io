@@ -51,7 +51,7 @@ body::before {
   inset: 0;
   z-index: 2000;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.07;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -105,10 +105,43 @@ img {
 }
 
 /* Section scaffold: mono panel number in the gutter, ruled top edge.
-   The rule draws in from the left when the section first enters view. */
+   The rule draws in from the left when the section first enters view.
+   Sections alternate paper stocks and carry a giant watermark of their
+   panel number, like folio numbers on oversized plates. */
+main {
+  counter-reset: panel;
+}
+
 .panel {
   position: relative;
+  overflow: hidden;
+  counter-increment: panel;
   padding-block: var(--space-section);
+}
+
+main .panel:nth-child(even) {
+  background: var(--paper-deep);
+}
+
+.panel::after {
+  content: "0" counter(panel);
+  position: absolute;
+  top: clamp(0.5rem, 3vw, 2rem);
+  right: -0.04em;
+  z-index: 0;
+  font-family: var(--font-display);
+  font-size: clamp(9rem, 24vw, 22rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--ink);
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+}
+
+.panel > .shell {
+  position: relative;
+  z-index: 1;
 }
 
 .panel::before {

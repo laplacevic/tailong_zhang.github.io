@@ -45,7 +45,7 @@ motif) signals craft.
   inversion from spectra to formation history or interior structure.
 - Sections: Hero, About, Research, Publications, Talks/News, Contact.
   (Publications opened 2026-07 with the first paper, Zhang et al. 2025,
-  arXiv:2508.10386, RASTI under review.)
+  arXiv:2508.10386, RASTI accepted.)
 - Links: ORCID, GitHub, KCL email, Bluesky. CV as a PDF link.
 - Language: English only.
 
