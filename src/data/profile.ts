@@ -7,9 +7,8 @@ export const profile = {
   tagline: "I study exoplanet atmospheres through transmission spectroscopy.",
   email: "tailong.zhang@kcl.ac.uk",
   links: {
-    orcid: "https://orcid.org/TODO-0000-0000-0000",
+    orcid: "https://orcid.org/0009-0008-2580-6234",
     github: "https://github.com/tailongzhang",
-    bluesky: "https://bsky.app/profile/TODO.bsky.social",
   },
   cvPath: "/cv.pdf",
 } as const;

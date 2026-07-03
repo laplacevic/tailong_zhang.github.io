@@ -10,10 +10,7 @@ import { profile } from "../data/profile";
     </div>
     <div class="cols">
       <figure class="portrait reveal">
-        <!-- Replace with <img src="/portrait.jpg" alt="..."> when the photo is ready -->
-        <div class="placeholder" aria-hidden="true">
-          <span class="mono muted">portrait</span>
-        </div>
+        <img src="/portrait.jpg" alt="Portrait of Tailong Zhang" width="1000" height="1067" />
         <figcaption class="mono muted">
           Tailong Zhang, London, 2026.
         </figcaption>
@@ -51,12 +48,12 @@ import { profile } from "../data/profile";
     margin: 0;
   }
 
-  .placeholder {
+  .portrait img {
+    display: block;
+    width: 100%;
     aspect-ratio: 4 / 5;
-    background: var(--paper-deep);
+    object-fit: cover;
     border: 1px solid var(--rule);
-    display: grid;
-    place-items: center;
   }
 
   figcaption {
