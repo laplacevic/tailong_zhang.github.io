@@ -63,9 +63,9 @@ reduced-motion gating removed; motion always plays.)
 - Hero spectrum is interactive on fine pointers: a dashed crosshair with
   a mono wavelength readout (and nearest-molecule label) follows the
   cursor, matplotlib-style. No motion cost when idle.
-- Fig. 2 (Research): transit schematic. A planet crosses the stellar
-  disk while the light curve draws in sync; plays once on scroll into
-  view, click to replay. Still nothing loops.
+- Figs. 2-3 (Research): formation-and-migration schematic, then the
+  transit schematic; each draws in sync once on scroll into view,
+  click to replay. Still nothing loops.
 - Scroll: sections fade-and-rise once via IntersectionObserver
   (threshold ~0.2), never re-trigger; section hairline rules draw in
   from the left the first time a panel enters view.
@@ -78,12 +78,14 @@ reduced-motion gating removed; motion always plays.)
 - Spectrum motif: inline SVG, single path, ~2px stroke in --ink, with
   3-4 absorption dips; small mono labels (e.g. "SO2", "H2S") in
   --accent near the dips.
-- Transit motif (Fig. 2): star disk + planet + synchronized light
-  curve, same annotated-figure language.
-- Formation motif (Fig. 3): protoplanetary disc on a log distance axis
+- Formation motif (Fig. 2): protoplanetary disc on a log distance axis
   with H2O/CO ice lines; a planet grows beyond the ice lines and
-  migrates inward, synced with a drawing trail. Same play-once /
-  click-replay mechanics as Fig. 2.
+  migrates inward, synced with a drawing trail. Play-once on scroll,
+  click to replay.
+- Transit motif (Fig. 3): star disk + planet with an accent atmosphere
+  halo + synchronized light curve, same mechanics. Figs. 2-3 read in
+  causal order (formation, then observation) and sit centered at the
+  same width below the Research list.
 - Fig. 1 spans 0.6-14 um (JWST NIRISS through MIRI LRS) on a log
   wavelength axis: Rayleigh slope, H2O 1.4/1.9/2.7, CH4 3.3, H2S 3.8,
   CO2 4.3, SO2 7.3, NH3 10.5, HCN toward 14. The three numbered figures
