@@ -92,4 +92,4 @@ reduced-motion gating removed; motion always plays.)
   are the illustration budget; nothing louder.
 - Photo: rectangular, no rounded avatar circle; sits on the grid like
   an editorial portrait, small caption in mono.
-- Footer: colophon line ("Set in Spectral & Schibsted Grotesk. Built with Astro.")
+- Footer: colophon line ("Built with Claude Fable 5.")
