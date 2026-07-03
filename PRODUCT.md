@@ -43,8 +43,9 @@ motif) signals craft.
   JWST/Ariel era; interests in minor molecules (SO2, NH3, H2S, HCN) and
   atmospheric chemistry as context for planet formation. Never framed as
   inversion from spectra to formation history or interior structure.
-- Sections: Hero, About, Research, Talks/News, Contact. No Publications
-  section until there are publications.
+- Sections: Hero, About, Research, Publications, Talks/News, Contact.
+  (Publications opened 2026-07 with the first paper, Zhang et al. 2025,
+  arXiv:2508.10386, RASTI under review.)
 - Links: ORCID, GitHub, KCL email, Bluesky. CV as a PDF link.
 - Language: English only.
 
@@ -64,5 +65,6 @@ motif) signals craft.
 - Maintained by a non-frontend-dev (Python researcher): plain content
   files, no dependency churn, builds for years.
 - Motion is restrained: entrance reveals, scroll fades, designed hover
-  states; respects prefers-reduced-motion; nothing continuous.
+  states; nothing continuous. (Owner chose to drop reduced-motion
+  gating, 2026-07.)
 - Static output, GitHub Pages, fast on conference wifi.

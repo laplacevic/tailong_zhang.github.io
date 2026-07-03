@@ -1,0 +1,79 @@
+---
+const publications = [
+  {
+    no: "[1]",
+    title:
+      "Atmospheric Characterisation with the Twinkle Space Telescope Following Advances from JWST Observations",
+    authors:
+      "Zhang, T., Wilcock, B., Ma, S., Tinetti, G., Bradley, L., Stotesbury, I., Tessenyi, M., Tennyson, J.",
+    meta: "2025 · RASTI, under review",
+    arxiv: "https://arxiv.org/abs/2508.10386",
+    arxivLabel: "arXiv:2508.10386",
+  },
+];
+---
+
+<section id="publications" class="panel">
+  <div class="shell">
+    <div class="panel-head reveal">
+      <span class="panel-no">03</span>
+      <h2 class="panel-title">Publications</h2>
+    </div>
+    <ol class="pubs">
+      {
+        publications.map((pub) => (
+          <li class="reveal">
+            <span class="mono no">{pub.no}</span>
+            <div>
+              <p class="title">{pub.title}</p>
+              <p class="authors muted">{pub.authors}</p>
+              <p class="mono muted meta">
+                <a href={pub.arxiv}>{pub.arxivLabel}</a> &middot; {pub.meta}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .pubs {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 2.25rem;
+  }
+
+  .pubs li {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    align-items: baseline;
+    max-width: 66ch;
+  }
+
+  .no {
+    color: var(--accent);
+  }
+
+  .title {
+    font-weight: 500;
+  }
+
+  .authors {
+    margin-top: 0.35em;
+    font-size: var(--text-sm);
+  }
+
+  .meta {
+    margin-top: 0.4em;
+  }
+
+  @media (max-width: 520px) {
+    .pubs li {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>

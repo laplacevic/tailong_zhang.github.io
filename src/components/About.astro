@@ -23,12 +23,19 @@ import { profile } from "../data/profile";
           of, and how confidently we can claim to know.
         </p>
         <p>
-          Before London I trained in physics and scientific computing,
-          and I keep one foot in each: most of my days are spent between
+          Before the PhD I was a Junior Support Scientist at Blue Skies
+          Space, building performance simulations for the Twinkle and
+          Mauve space missions. I keep one foot in physics and one in
+          scientific computing: most of my days are spent between
           radiative-transfer models, Bayesian inference, and an unhealthy
           number of matplotlib figures.
         </p>
-        <p class="mono">
+        <p class="mono muted path">
+          BSc Physics &amp; Astronomy, York University &rarr; MSc
+          Planetary Science (Distinction), UCL &rarr; PhD Physics,
+          King's College London
+        </p>
+        <p class="mono cv">
           <a href={profile.cvPath}>Curriculum vitae (PDF)</a>
         </p>
       </div>
@@ -65,8 +72,13 @@ import { profile } from "../data/profile";
     margin-top: 1.1em;
   }
 
-  .text .mono {
+  .text .path {
     margin-top: 2rem;
+    line-height: 1.8;
+  }
+
+  .text .cv {
+    margin-top: 1rem;
   }
 
   @media (max-width: 700px) {
