@@ -1,14 +1,19 @@
 ---
-// Schematic transmission spectrum: transit depth vs wavelength, with
-// absorption features labelled for the minor molecules Tailong works on.
-// Decorative; the figure caption marks it as a schematic.
+// Schematic transmission spectrum over JWST's 0.6-14 um coverage
+// (NIRISS through MIRI LRS), log wavelength axis. Feature positions
+// follow the real bands: a Rayleigh slope in the blue, H2O at 1.4/1.9/2.7,
+// CH4 at 3.3, H2S near 3.8, CO2 at 4.3, SO2 at 7.3, NH3 at 10.5 and
+// HCN toward 13-14 um. Decorative; the caption marks it as a schematic.
+const LOG_RANGE = Math.log(14 / 0.6);
+const xOf = (um: number) => 60 + (880 * Math.log(um / 0.6)) / LOG_RANGE;
+const ticks = [1, 2, 5, 10];
 ---
 
 <figure class="spectrum">
   <svg
     viewBox="0 0 1000 260"
     role="img"
-    aria-label="Schematic transmission spectrum with absorption features labelled NH3, H2S and SO2"
+    aria-label="Schematic transmission spectrum from 0.6 to 14 microns with a Rayleigh slope and absorption features labelled H2O, CH4, H2S, CO2, SO2, NH3 and HCN"
   >
     <!-- graph-paper grid under the plot area -->
     <defs>
@@ -31,26 +36,42 @@
     <path
       class="curve"
       pathLength="1000"
-      d="M 60 185
-         C 100 183, 130 150, 165 148
-         C 200 146, 215 180, 250 182
-         C 275 183, 280 140, 310 138
-         C 340 136, 350 178, 385 180
-         C 415 182, 425 145, 455 142
-         C 490 139, 510 176, 545 178
-         C 580 180, 600 168, 630 158
-         C 655 150, 665 165, 690 150
-         C 700 120, 715 115, 725 130
-         C 740 155, 760 178, 800 182
-         C 840 186, 880 184, 940 186"
+      d="M 60 148
+         C 90 152, 130 166, 175 175
+         C 215 181, 255 183, 277 180
+         C 285 170, 290 152, 297 151
+         C 304 152, 312 172, 325 180
+         C 340 184, 355 183, 368 176
+         C 374 170, 378 165, 383 164
+         C 390 166, 398 176, 412 181
+         C 428 184, 448 183, 465 176
+         C 472 171, 476 167, 481 166
+         C 488 167, 496 175, 508 180
+         C 518 182, 526 172, 531 158
+         C 534 150, 537 148, 540 150
+         C 545 156, 550 170, 558 173
+         C 564 170, 570 166, 577 165
+         C 583 166, 588 172, 594 172
+         C 600 165, 605 135, 611 120
+         C 614 116, 618 117, 622 126
+         C 628 142, 636 168, 648 178
+         C 662 184, 690 186, 710 185
+         C 722 183, 740 158, 752 145
+         C 756 141, 762 141, 768 147
+         C 778 160, 790 178, 802 182
+         C 812 184, 828 172, 840 158
+         C 848 151, 856 150, 864 154
+         C 874 162, 886 176, 898 178
+         C 906 176, 916 162, 924 158
+         C 930 157, 936 162, 940 168"
     ></path>
 
-    <!-- wavelength axis -->
+    <!-- wavelength axis (log scale) -->
     <g class="axis">
       <line x1="60" y1="212" x2="940" y2="212"></line>
       {
-        [1, 2, 3, 4, 5].map((um) => {
-          const x = 60 + ((um - 0.8) / 4.4) * 880;
+        ticks.map((um) => {
+          const x = xOf(um);
           return (
             <>
               <line x1={x} y1="212" x2={x} y2="219" />
@@ -65,19 +86,30 @@
       <text x="38" y="180" text-anchor="middle" transform="rotate(-90 38 180)">
         transit depth
       </text>
+      <text x="140" y="150" text-anchor="middle">Rayleigh</text>
     </g>
 
     <!-- molecule annotations -->
     <g class="labels">
-      <text x="310" y="122" text-anchor="middle">
-        NH<tspan dy="4" font-size="11">3</tspan>
+      <text x={xOf(1.4)} y="133" text-anchor="middle">
+        H<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">O</tspan>
       </text>
-      <text x="640" y="138" text-anchor="middle">
+      <text x={xOf(3.3)} y="130" text-anchor="middle">
+        CH<tspan dy="4" font-size="11">4</tspan>
+      </text>
+      <text x={xOf(3.8)} y="149" text-anchor="middle">
         H<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">S</tspan>
       </text>
-      <text x="716" y="99" text-anchor="middle">
+      <text x={xOf(4.3)} y="102" text-anchor="middle">
+        CO<tspan dy="4" font-size="11">2</tspan>
+      </text>
+      <text x={xOf(7.3)} y="127" text-anchor="middle">
         SO<tspan dy="4" font-size="11">2</tspan>
       </text>
+      <text x={xOf(10.5)} y="133" text-anchor="middle">
+        NH<tspan dy="4" font-size="11">3</tspan>
+      </text>
+      <text x={xOf(13)} y="139" text-anchor="middle">HCN</text>
     </g>
 
     <!-- hover crosshair: matplotlib-style wavelength readout -->
@@ -87,7 +119,7 @@
     </g>
   </svg>
   <figcaption class="mono muted">
-    Fig. 1: a transmission spectrum (schematic).
+    Fig. 1: a transmission spectrum (schematic), 0.6&ndash;14 &#181;m.
   </figcaption>
 </figure>
 
@@ -203,16 +235,24 @@
 
 <script>
   // Wavelength readout that follows the cursor, like a matplotlib figure.
+  // Log axis: 0.6-14 um over x = 60..940.
   const svg = document.querySelector<SVGSVGElement>(".spectrum svg");
   const cross = svg?.querySelector<SVGGElement>(".cross");
   const line = svg?.querySelector<SVGLineElement>(".cross-line");
   const text = svg?.querySelector<SVGTextElement>(".cross-text");
   const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const LOG_RANGE = Math.log(14 / 0.6);
 
   const molecules: Array<[number, number, string]> = [
-    [275, 345, "NH₃"],
-    [595, 665, "H₂S"],
-    [686, 746, "SO₂"],
+    [277, 320, "H₂O"],
+    [365, 400, "H₂O"],
+    [462, 500, "H₂O"],
+    [518, 552, "CH₄"],
+    [556, 592, "H₂S"],
+    [594, 634, "CO₂"],
+    [738, 780, "SO₂"],
+    [830, 884, "NH₃"],
+    [900, 938, "HCN"],
   ];
 
   if (svg && cross && line && text && fine.matches) {
@@ -222,7 +262,7 @@
         940,
         Math.max(60, ((e.clientX - rect.left) / rect.width) * 1000),
       );
-      const um = 0.8 + ((x - 60) / 880) * 4.4;
+      const um = 0.6 * Math.exp(((x - 60) / 880) * LOG_RANGE);
       const mol = molecules.find(([a, b]) => x >= a && x <= b)?.[2];
       line.setAttribute("x1", String(x));
       line.setAttribute("x2", String(x));

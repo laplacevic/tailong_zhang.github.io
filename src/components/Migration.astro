@@ -1,0 +1,212 @@
+---
+// Fig. 3: giant-planet formation and inward migration, on a log
+// distance axis (0.03-100 au). The planet grows beyond the ice lines
+// and migrates in toward the star through the protoplanetary disc.
+// Plays once when scrolled into view; click replays.
+const LOG_RANGE = Math.log(100 / 0.03);
+const xOf = (au: number) => 60 + (880 * Math.log(au / 0.03)) / LOG_RANGE;
+const ticks = [0.1, 1, 10, 100];
+const xStart = xOf(40);
+const xEnd = xOf(0.05);
+const xH2O = xOf(2.7);
+const xCO = xOf(30);
+---
+
+<figure class="migration reveal" id="migration-fig">
+  <svg
+    viewBox="0 0 1000 300"
+    role="img"
+    aria-label="Animated schematic of giant-planet formation: a planet grows in the outer protoplanetary disc beyond the water and CO ice lines, then migrates inward toward its star"
+  >
+    <!-- protoplanetary disc, flared -->
+    <path
+      class="disc"
+      d={`M 95 146 L 940 92 L 940 208 L 95 154 Z`}></path>
+
+    <!-- star -->
+    <circle class="host" cx="72" cy="150" r="11"></circle>
+
+    <!-- ice lines -->
+    <g class="ice">
+      <line x1={xH2O} y1="96" x2={xH2O} y2="240"></line>
+      <line x1={xCO} y1="96" x2={xCO} y2="240"></line>
+    </g>
+    <g class="ice-labels">
+      <text x={xH2O} y="84" text-anchor="middle">
+        H<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">O ice line</tspan>
+      </text>
+      <text x={xCO} y="84" text-anchor="middle">CO ice line</text>
+    </g>
+
+    <!-- migration track and planet -->
+    <path
+      class="trail"
+      pathLength="1000"
+      d={`M ${xStart} 150 L ${xEnd} 150`}></path>
+    <g class="mig" style={`--shift: ${xEnd - xStart}px;`}>
+      <circle class="pl" cx={xStart} cy="150" r="3"></circle>
+    </g>
+    <text class="miglabel" x="470" y="138" text-anchor="middle"
+      >inward migration</text
+    >
+
+    <!-- distance axis (log scale) -->
+    <g class="axis">
+      <line x1="60" y1="240" x2="940" y2="240"></line>
+      {
+        ticks.map((au) => {
+          const x = xOf(au);
+          return (
+            <>
+              <line x1={x} y1="240" x2={x} y2="247" />
+              <text x={x} y="266" text-anchor="middle">
+                {au}
+              </text>
+            </>
+          );
+        })
+      }
+      <text x="500" y="292" text-anchor="middle">
+        distance from star (au)
+      </text>
+      <text x="430" y="205" text-anchor="middle">protoplanetary disc</text>
+    </g>
+  </svg>
+  <figcaption class="mono muted">
+    Fig. 3: a giant planet grows beyond the ice lines, then migrates
+    inward. <span class="hint">(click to replay)</span>
+  </figcaption>
+</figure>
+
+<style>
+  .migration {
+    margin: clamp(3rem, 6vw, 5rem) auto 0 0;
+    max-width: 680px;
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: pointer;
+  }
+
+  .disc {
+    /* section behind alternates to paper-deep, so the disc uses paper */
+    fill: var(--paper);
+    stroke: var(--rule);
+    stroke-width: 1;
+  }
+
+  .host {
+    fill: var(--ink);
+  }
+
+  .ice line {
+    stroke: var(--ink-muted);
+    stroke-width: 1;
+    stroke-dasharray: 4 6;
+  }
+
+  .ice-labels text,
+  .axis text {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    fill: var(--ink-muted);
+  }
+
+  .ice-labels text {
+    fill: var(--accent);
+  }
+
+  .axis line {
+    stroke: var(--ink-muted);
+    stroke-width: 1;
+  }
+
+  .trail {
+    stroke: var(--ink-muted);
+    stroke-width: 1;
+    fill: none;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+
+  .pl {
+    fill: var(--ink);
+  }
+
+  .miglabel {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    fill: var(--accent);
+    opacity: 0;
+  }
+
+  .migration.run .mig {
+    animation: migrate 8000ms linear 400ms forwards;
+  }
+
+  .migration.run .pl {
+    animation: grow 8000ms linear 400ms forwards;
+  }
+
+  .migration.run .trail {
+    animation: draw-trail 8000ms linear 400ms forwards;
+  }
+
+  .migration.run .miglabel {
+    animation: fade-in 700ms var(--ease-out-expo) 4400ms forwards;
+  }
+
+  figcaption {
+    margin-top: 0.75rem;
+  }
+
+  @keyframes migrate {
+    to {
+      transform: translateX(var(--shift));
+    }
+  }
+
+  @keyframes grow {
+    to {
+      r: 7;
+    }
+  }
+
+  @keyframes draw-trail {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes fade-in {
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  const fig = document.getElementById("migration-fig");
+  if (fig) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            fig.classList.add("run");
+            observer.unobserve(fig);
+          }
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(fig);
+    fig.addEventListener("click", () => {
+      fig.classList.remove("run");
+      void fig.getBoundingClientRect().width;
+      fig.classList.add("run");
+    });
+  }
+</script>

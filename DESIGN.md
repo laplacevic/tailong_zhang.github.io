@@ -79,8 +79,15 @@ reduced-motion gating removed; motion always plays.)
   3-4 absorption dips; small mono labels (e.g. "SO2", "H2S") in
   --accent near the dips.
 - Transit motif (Fig. 2): star disk + planet + synchronized light
-  curve, same annotated-figure language. The two numbered figures are
-  the illustration budget; nothing louder.
+  curve, same annotated-figure language.
+- Formation motif (Fig. 3): protoplanetary disc on a log distance axis
+  with H2O/CO ice lines; a planet grows beyond the ice lines and
+  migrates inward, synced with a drawing trail. Same play-once /
+  click-replay mechanics as Fig. 2.
+- Fig. 1 spans 0.6-14 um (JWST NIRISS through MIRI LRS) on a log
+  wavelength axis: Rayleigh slope, H2O 1.4/1.9/2.7, CH4 3.3, H2S 3.8,
+  CO2 4.3, SO2 7.3, NH3 10.5, HCN toward 14. The three numbered figures
+  are the illustration budget; nothing louder.
 - Photo: rectangular, no rounded avatar circle; sits on the grid like
   an editorial portrait, small caption in mono.
 - Footer: colophon line ("Set in Spectral & Schibsted Grotesk. Built with Astro.")
