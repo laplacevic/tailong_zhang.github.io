@@ -12,17 +12,19 @@ Pages via Actions on every push to `main`.
 | About paragraphs | `src/components/About.astro` |
 | Research description | `src/components/Research.astro` |
 | CV | Replace `public/cv.pdf` |
-| Photo | Add `public/portrait.jpg`, swap the placeholder in `About.astro` |
+| Photo | Replace `public/portrait.jpg` |
 
 A talk entry looks like:
 
 ```markdown
 ---
-title: "Talk title"
+title: "Official conference or talk name"
 date: 2026-06-05
-venue: "Conference or seminar name"
-kind: talk        # talk | poster | news
-link: https://...  # optional
+venue: "Institution or city"
+kind: talk                        # talk | poster | news
+contribution: "contributed talk"  # optional, overrides kind in the meta line
+highlight: "Best Poster Prize"    # optional, accent-colored
+link: https://...                 # optional
 ---
 ```
 
@@ -38,13 +40,12 @@ npm run build    # static build into dist/
 
 Design decisions are documented in `PRODUCT.md`, `DESIGN.md`, and
 `CONTEXT.md`. Short version: editorial/Swiss, light paper palette,
-Spectral + Schibsted Grotesk + Spline Sans Mono, one decorative motif
-(the hero transmission-spectrum figure), restrained motion gated behind
-`prefers-reduced-motion`.
+Spectral + Schibsted Grotesk + Spline Sans Mono, three annotated
+scientific figures (spectrum, formation-and-migration, transit) as the
+only illustration, restrained play-once motion.
 
-## First-time GitHub setup
+## Deployment
 
-1. Rename the GitHub account to `tailongzhang` (Settings > Account).
-2. Create a repository named exactly `tailongzhang.github.io`.
-3. Repository Settings > Pages > Source: GitHub Actions.
-4. Push this directory to `main`.
+Live at https://tailongzhang.github.io. Repo is public; GitHub Pages
+serves the Actions build on every push to `main` (setup completed
+2026-07-03). No manual steps.

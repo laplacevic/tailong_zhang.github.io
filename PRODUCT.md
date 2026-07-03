@@ -7,7 +7,7 @@ atmospheres at King's College London (supervisor: Giovanna Tinetti).
 An academic calling card: a static, single-page profile that lets people
 who encountered him (conference, paper, search) learn who he is, what he
 works on, and how to reach him. It links out to external networks (ORCID,
-GitHub, Bluesky, email); it hosts no interactive features itself.
+GitHub, email); it hosts no interactive features itself.
 
 ## Register
 
@@ -46,7 +46,8 @@ motif) signals craft.
 - Sections: Hero, About, Research, Publications, Talks/News, Contact.
   (Publications opened 2026-07 with the first paper, Zhang et al. 2025,
   arXiv:2508.10386, RASTI accepted.)
-- Links: ORCID, GitHub, KCL email, Bluesky. CV as a PDF link.
+- Links: ORCID, GitHub, KCL email. CV as a PDF link. (Bluesky dropped
+  2026-07: no handle.)
 - Language: English only.
 
 ## Anti-references
@@ -54,8 +55,9 @@ motif) signals craft.
 - Hugo Blox / al-folio / Jekyll academic templates: the thousand
   identical academic sites with sidebar photo + publication list.
 - Dark "space site" aesthetic: starfields, planet renders, neon-on-black.
-  The exoplanet motif is allowed exactly one expression: a
-  transmission-spectrum curve.
+  Exoplanet imagery is allowed only as annotated scientific figures in
+  the editorial language (Figs. 1-3: spectrum, formation-and-migration,
+  transit); never illustration or photography.
 - SaaS landing-page tropes: gradient blobs, hero metrics, card grids.
 
 ## Strategic principles
